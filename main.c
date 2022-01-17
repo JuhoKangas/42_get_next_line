@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:06:05 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 12:53:38 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/17 18:48:41 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	main(int argc, char **argv)
 	int	fd = open(argv[1], O_RDONLY);
 	//int	fd = 42;
 
+	argc = 2;
 	char	*line = NULL;
 	int i = 1;
 	
-	while (i > 0)
-	{
 		i = get_next_line(fd, &line);
-		printf("%d: %s\n", i, line);
-		ft_strdel(&line);
-	}
+//		printf("%d: %s\n", i, line);
+		printf("%d", i);
+//		ft_strdel(&line);
 	//system("leaks a.out");
 	return (0);
 }
