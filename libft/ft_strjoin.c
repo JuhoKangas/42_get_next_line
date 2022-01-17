@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/12/02 16:27:58 by jkangas           #+#    #+#             */
+/*   Updated: 2021/12/13 18:54:53 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 #include <stdlib.h>
-#include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
+	char	*ret;
+	size_t	len1;
+	size_t	len2;
 
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
-	{
-		buffer[bytes_read] = '\0';
-		
-	}
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	ret = ft_strnew(len1 + len2);
+	if (ret == NULL)
+		return (NULL);
+	ret = ft_strcat(ret, s1);
+	ret = ft_strcat(ret, s2);
+	return (ret);
 }

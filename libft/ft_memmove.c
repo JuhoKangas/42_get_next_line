@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/11/23 16:50:37 by jkangas           #+#    #+#             */
+/*   Updated: 2021/11/23 17:10:47 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
-
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+	if (!dst && !src)
+		return (dst);
+	if (dst < src)
 	{
-		buffer[bytes_read] = '\0';
-		
+		ft_memcpy(dst, src, len);
 	}
+	else
+	{
+		while (len > 0)
+		{
+			((char *)dst)[len - 1] = ((char *)src)[len - 1];
+			len--;
+		}
+	}
+	return (dst);
 }

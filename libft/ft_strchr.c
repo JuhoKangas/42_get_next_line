@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/11/22 14:40:54 by jkangas           #+#    #+#             */
+/*   Updated: 2021/11/22 14:43:06 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strchr(const char *s, int c)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
-
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
-	{
-		buffer[bytes_read] = '\0';
-		
-	}
+	return (ft_memchr(s, c, ft_strlen(s) + 1));
 }

@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/12/08 14:46:51 by jkangas           #+#    #+#             */
+/*   Updated: 2021/12/08 15:40:38 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 #include <stdlib.h>
-#include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+static void	free_new(t_list **new)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
+	free((*new)->content);
+	free(*new);
+	*new = NULL;
+}
 
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	t_list	*new;
+
+	if (!lst)
+		return (NULL);
+	new = f(lst);
+	if (new == NULL)
+		return (NULL);
+	if (lst->next != NULL)
 	{
-		buffer[bytes_read] = '\0';
-		
+		new->next = ft_lstmap(lst->next, f);
+		if (new->next == NULL)
+			free_new(&new);
 	}
+	return (new);
 }

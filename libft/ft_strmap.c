@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/11/30 19:26:03 by jkangas           #+#    #+#             */
+/*   Updated: 2021/11/30 19:33:20 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 #include <stdlib.h>
-#include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
+	size_t	i;
+	char	*map;
 
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+	if (s == 0)
+		return (NULL);
+	map = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (map == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
 	{
-		buffer[bytes_read] = '\0';
-		
+		map[i] = f(s[i]);
+		i++;
 	}
+	map[i] = '\0';
+	return (map);
 }

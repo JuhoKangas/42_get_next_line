@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/11/05 16:00:40 by jkangas           #+#    #+#             */
+/*   Updated: 2021/11/08 16:41:48 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 #include <stdlib.h>
-#include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strdup(const char *s1)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
+	char	*rt_str;
+	int		i;
+	size_t	len;
 
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+	i = 0;
+	len = ft_strlen(s1);
+	rt_str = (char *)malloc(sizeof(char) * len + 1);
+	if (!rt_str)
+		return (NULL);
+	while (s1[i])
 	{
-		buffer[bytes_read] = '\0';
-		
+		rt_str[i] = s1[i];
+		i++;
 	}
+	rt_str[i] = '\0';
+	return (rt_str);
 }

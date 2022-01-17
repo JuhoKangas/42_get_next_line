@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jkangas <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:04:55 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:48:05 by jkangas          ###   ########.fr       */
+/*   Created: 2021/10/28 12:28:23 by jkangas           #+#    #+#             */
+/*   Updated: 2021/11/04 18:01:49 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
+#include <unistd.h>
 
-# define BUFF_SIZE 4096
-# define FD_SIZE 5000
-
-int	get_next_line(const int fd, char **line);
-
-#endif
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}

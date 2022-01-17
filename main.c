@@ -6,11 +6,12 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:06:05 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/13 18:24:04 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/17 12:53:38 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft/libft.h"
 #include <stdio.h>
 #include <fcntl.h>
 

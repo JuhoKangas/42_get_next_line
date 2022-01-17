@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/17 14:56:08 by jkangas          ###   ########.fr       */
+/*   Created: 2021/12/01 17:00:57 by jkangas           #+#    #+#             */
+/*   Updated: 2021/12/02 20:34:29 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 #include <stdlib.h>
-#include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	static char	*str[FD_SIZE];
-	char		*buffer[BUFF_SIZE + 1];
-	ssize_t		bytes_read;
+	char	*str;
+	size_t	i;
 
-	if (fd <= 0 || !line)
-		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+	if (s == 0)
+		return (NULL);
+	str = (char *)malloc(sizeof(*str) * len + 1);
+	if (str == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (str);
+	i = 0;
+	while (i < len)
 	{
-		buffer[bytes_read] = '\0';
-		
+		str[i] = s[start];
+		i++;
+		start++;
 	}
+	str[i] = '\0';
+	return (str);
 }
