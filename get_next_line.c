@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/18 15:19:01 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:36:03 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,69 @@
 #include "get_next_line.h"
 #include "libft/libft.h"
 
-int	get_line()
+int	get_line(char **str, char **line)
 {
-	//either with iterating with integer or using the pointer from strchr
-	//trim the everything after \n including the character itself
+	size_t	i;
+	char	*temp;
 
-	//Set the remaining string as the line to the address given
+	i = 0;
+	while ((*str)[i] != '\n' && (*str)[i] != '\0')
+		i++;
+	if ((*str)[i] == '\n')
+	{
+		*line = ft_strsub(*str, 0, i);
+		temp = ft_strdup(&((*str)[i + 1]));
+		*str = temp;
+	}
+	else
+	{
+		*line = ft_strdup(*str);
+		ft_strdel(str);
+	}
+	return (1);
 }
 
-static int	check_data(const int fd, char **line, ssize_t bytes_read, char **str)
+/*
+ * check_data will
+ * Return -1 for error in reading the file, bytes < 0
+ * Return 0 if the end of file was successfully read, bytes == 0, or
+ * Pass the data forward to get_line, bytes > 0
+ */
+
+static int	check_data(const int fd, char **line, ssize_t bytes, char **str)
 {
-	//Return -1 for error in reading the file, bytes_read < 0
-	if (bytes_read < 0)
+	if (bytes < 0)
 	{
+		ft_memdel((void **)str);
 		return (-1);
 	}
-	//Return 0 for successfully reading end of file, bytes_read == 0
-	else if (bytes_read == 0)
+	else if (bytes == 0)
+	{
+		ft_memdel((void **)str);
 		return (0);
-	//Return 1 for reading the line and coming across \n
-	//-->pass the data for trimming the line
+	}
 	else
-		return (get_line(&str[fd]), line)
+		return (get_line(&str[fd], line));
 }
+
+/*
+ * Comment about get_next_line here
+ */
 
 int	get_next_line(const int fd, char **line)
 {
 	static char	*str[FD_SIZE];
 	char		buffer[BUFF_SIZE + 1];
 	char		*temp;
-	ssize_t		bytes_read;
+	ssize_t		bytes;
 
 	if (fd <= 0 || !line)
 		return (-1);
-	bytes_read = read(fd, buffer, BUFF_SIZE);
-	while (bytes_read > 0)
+	bytes = read(fd, buffer, BUFF_SIZE);
+	while (bytes > 0)
 	{
-		buffer[bytes_read] = '\0';
-		if(!str[fd])
+		buffer[bytes] = '\0';
+		if (!str[fd])
 			str[fd] = ft_strdup(buffer);
 		else
 		{
@@ -62,7 +87,7 @@ int	get_next_line(const int fd, char **line)
 		}
 		if (ft_strchr(str[fd], '\n'))
 			break ;
-		bytes_read = read(fd, buffer, BUFF_SIZE);
+		bytes = read(fd, buffer, BUFF_SIZE);
 	}
-	return (check_data(fd, **line, bytes_read, str));
+	return (check_data(fd, line, bytes, str));
 }
