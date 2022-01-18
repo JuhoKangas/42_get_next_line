@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/18 16:36:03 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/18 17:10:37 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ int	get_line(char **str, char **line)
 	if ((*str)[i] == '\n')
 	{
 		*line = ft_strsub(*str, 0, i);
-		temp = ft_strdup(&((*str)[i + 1]));
+		temp = ft_strdup(&(*str)[i + 1]);
+		ft_strdel(str);
 		*str = temp;
+		if ((*str)[0] == '\0')
+			ft_strdel(str);
 	}
 	else
 	{
@@ -51,7 +54,7 @@ static int	check_data(const int fd, char **line, ssize_t bytes, char **str)
 		ft_memdel((void **)str);
 		return (-1);
 	}
-	else if (bytes == 0)
+	else if (bytes == 0 && str[fd] == NULL)
 	{
 		ft_memdel((void **)str);
 		return (0);
@@ -71,7 +74,7 @@ int	get_next_line(const int fd, char **line)
 	char		*temp;
 	ssize_t		bytes;
 
-	if (fd <= 0 || !line)
+	if (fd < 0 || !line)
 		return (-1);
 	bytes = read(fd, buffer, BUFF_SIZE);
 	while (bytes > 0)
