@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/18 17:10:37 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/19 13:47:48 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	get_next_line(const int fd, char **line)
 	char		*temp;
 	ssize_t		bytes;
 
-	if (fd < 0 || !line)
+	if (fd < 0 || !line || fd > FD_SIZE)
 		return (-1);
 	bytes = read(fd, buffer, BUFF_SIZE);
 	while (bytes > 0)
