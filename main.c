@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:06:05 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/18 17:19:19 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/19 16:15:01 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	while (i > 0)
 	{
 		i = get_next_line(fd, &line);
-		printf("%d: %s\n", i, line);
+		printf("%d: %s\n", lines, line);
 		ft_strdel(&line);
 		lines++;
 	}
