@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/19 13:47:48 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/21 15:06:51 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,16 @@
 #include "get_next_line.h"
 #include "libft/libft.h"
 
-int	get_line(char **str, char **line)
+/*
+ * get_line() will iterate until newline- or null-character.
+ * If the character is newline, the function will take a substring up
+ * until that character and save that into the given line. Then
+ * it will replace the saved string starting from the next character after
+ * newline character. Otherwise it will just save that string into the given
+ * line and free the static str.
+ */
+
+static int	get_line(char **str, char **line)
 {
 	size_t	i;
 	char	*temp;
@@ -64,7 +73,12 @@ static int	check_data(const int fd, char **line, ssize_t bytes, char **str)
 }
 
 /*
- * Comment about get_next_line here
+ * The main function which takes care of reading the file
+ * and handling saving the data from the buffer to the heap memory.
+ * Data will be saved according to the fd in str[FD_SIZE] so you can always continue to
+ * read into that same index. This makes reading from multiple files
+ * possible. If file is read succesfully until newline chracter or eof it 
+ * will be passed to check_data() which processes it further.
  */
 
 int	get_next_line(const int fd, char **line)
