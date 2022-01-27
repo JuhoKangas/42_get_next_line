@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/27 13:20:03 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/27 14:28:04 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ static int	check_data(const int fd, char **line, ssize_t bytes, char **str)
 /*
  * The main function which takes care of reading the file
  * and handling saving the data from the buffer to the heap memory.
- * Data will be saved according to the fd in str[FD_SIZE] so you can always continue to
- * read into that same index. This makes reading from multiple files
- * possible. If file is read succesfully until newline chracter or eof it 
+ * Data will be saved according to the fd in str[FD_SIZE] so you 
+ * can always continue to read into that same index. This makes reading 
+ * from multiple files possible.
+ * If file is read succesfully until newline chracter or eof it 
  * will be passed to check_data() which processes it further.
  */
 
