@@ -6,7 +6,7 @@
 /*   By: jkangas <jkangas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:02:30 by jkangas           #+#    #+#             */
-/*   Updated: 2022/01/21 15:06:51 by jkangas          ###   ########.fr       */
+/*   Updated: 2022/01/27 13:20:03 by jkangas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ int	get_next_line(const int fd, char **line)
 
 	if (fd < 0 || !line || fd > FD_SIZE)
 		return (-1);
+	bytes = 1;
+	if (str[fd])
+	{
+		if (ft_strchr(str[fd], '\n'))
+			return (check_data(fd, line, bytes, str));
+	}
 	bytes = read(fd, buffer, BUFF_SIZE);
 	while (bytes > 0)
 	{
